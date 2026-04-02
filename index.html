@@ -220,7 +220,7 @@ const TRANSLATIONS = {
                     <h3 class="font-bold text-gray-800 mb-2 text-lg">Ohm's Law</h3>
                     <p class="mb-2">Current through a conductor is directly proportional to voltage and inversely proportional to resistance.</p>
                     <div class="text-xl font-bold text-center py-2 bg-white rounded shadow-sm">
-                        $$ V = I \\times R $$
+                        $$V = I \\times R$$
                     </div>
                     <ul class="list-disc list-inside mt-2 text-sm text-gray-600">
                         <li><strong>V</strong> = Voltage (V)</li>
@@ -232,11 +232,11 @@ const TRANSLATIONS = {
                     <h3 class="font-bold text-purple-800 mb-2 text-lg">Total Resistance</h3>
                     <p><strong>Series:</strong> Resistors connected end-to-end.</p>
                     <div class="text-lg font-bold text-center py-2 bg-white rounded shadow-sm mb-2">
-                        $$ R_{total} = R_1 + R_2 $$
+                        $$R_{total} = R_1 + R_2$$
                     </div>
                     <p><strong>Parallel:</strong> Resistors connected across the same two points.</p>
                     <div class="text-lg font-bold text-center py-2 bg-white rounded shadow-sm">
-                        $$ \\frac{1}{R_{total}} = \\frac{1}{R_1} + \\frac{1}{R_2} $$
+                        $$\\frac{1}{R_{total}} = \\frac{1}{R_1} + \\frac{1}{R_2}$$
                     </div>
                 </div>
             </div>
@@ -296,18 +296,18 @@ class Component {
 
     setDefaultProps() {
         switch(this.type) {
-            case 'wire': this.resistance = 0.001; break;
+            case 'wire': this.resistance = 0; break;
             case 'switch': this.resistance = 0.001; this.isClosed = false; break;
             case 'ammeter': this.resistance = 0.001; break;
             case 'voltmeter': this.resistance = 1000000; break;
             case 'bulb': this.resistance = 5; break;
-            case 'battery': this.resistance = 0.01; break;
+            case 'battery': this.resistance = 0; break;
         }
     }
 
     getResistance() {
         if (this.type === 'switch' && !this.isClosed) return 100000000;
-        return this.resistance;
+        return Math.max(this.resistance, 1e-7);
     }
 }
 
